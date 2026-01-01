@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CountryListApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CountryListApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CountryListApplication.class, args);
+    }
 
 }

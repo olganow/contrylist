@@ -106,5 +106,6 @@ public class CountryController {
     }
 
     // DTO для ошибок
-    public record ErrorResponse(String message) {}
+    public record ErrorResponse(String message) {
+    }
 }

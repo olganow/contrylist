@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
+
 //Это тоже бин
 public interface CountryRepository extends JpaRepository<CountryEntity, UUID> {
 

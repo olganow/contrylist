@@ -13,7 +13,6 @@ public class AppConfig {
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper om = new ObjectMapper();
-        // Используем формат даты, совместимый с ISO и базой данных
         om.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         return om;
     }

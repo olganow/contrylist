@@ -10,4 +10,5 @@ public record CreateCountryRequest(
         String isoCode,
 
         JsonNode geometry  // Принимаем JsonNode, а не String
-) {}
+) {
+}
