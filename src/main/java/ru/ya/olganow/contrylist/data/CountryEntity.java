@@ -35,7 +35,6 @@ public class CountryEntity {
     @JdbcTypeCode(SqlTypes.JSON)
     private String geometry;
 
-    // Конструкторы
     public CountryEntity() {
         this.lastModifyDate = new Date();
     }
@@ -47,7 +46,6 @@ public class CountryEntity {
         this.geometry = geometry;
     }
 
-    // Геттеры и сеттеры
     public UUID getId() {
         return id;
     }
@@ -66,6 +64,26 @@ public class CountryEntity {
 
     public String getGeometry() {
         return geometry;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIsoCode(String isoCode) {
+        this.isoCode = isoCode;
+    }
+
+    public void setLastModifyDate(Date lastModifyDate) {
+        this.lastModifyDate = lastModifyDate;
+    }
+
+    public void setGeometry(String geometry) {
+        this.geometry = geometry;
     }
 
     // Переопределение JPA

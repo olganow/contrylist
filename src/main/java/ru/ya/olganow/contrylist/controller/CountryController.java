@@ -2,45 +2,66 @@ package ru.ya.olganow.contrylist.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.ya.olganow.contrylist.domain.Country;
 import ru.ya.olganow.contrylist.service.CountryService;
+import ru.ya.olganow.contrylist.service.DbCountryService;
 
 import java.util.List;
 
-// Аннотация @RestController - комбинация @Controller + @ResponseBody
-// Указывает, что этот класс является контроллером Spring MVC для обработки HTTP запросов
-// Все методы автоматически возвращают данные в формате JSON (благодаря @ResponseBody)
-@RestController //Это бин
-// Аннотация @RequestMapping - задает базовый URL путь для всех методов контроллера
-// Все URL в этом контроллере будут начинаться с "api/photo"
-@RequestMapping("api/photo")
+@RestController
+@RequestMapping("api/countries")
 public class CountryController {
-    // Приватное финальное поле для хранения ссылки на сервис работы с фотографиями
-    // final гарантирует, что ссылка будет инициализирована в конструкторе и не изменится
-    private final CountryService photoService;
 
-    // Аннотация @Autowired - указывает Spring'у внедрить зависимость (Dependency Injection)
-    // Spring автоматически найдет подходящий бин типа PhotoService и передаст его в конструктор
+    private final CountryService countryService;
+
     @Autowired
-    // Конструктор класса, принимающий PhotoService в качестве параметра
-    // Это предпочтительный способ инъекции зависимостей (constructor injection)
-    public CountryController(CountryService photoService){
-        // Присвоение переданного сервиса полю класса
-        this.photoService = photoService;
+    public CountryController(CountryService countryService){
+        this.countryService = countryService;
     }
 
-    // Аннотация @GetMapping - указывает, что метод обрабатывает HTTP GET запросы
-    // "/all" добавляется к базовому пути контроллера, итоговый путь: "/api/photo/all"
     //http://127.0.0.1:8283/api/countries/all
     @GetMapping("/all")
-    // Метод обработки запроса, возвращает список объектов Photo
-    // Spring автоматически преобразует List<Photo> в JSON
-    public List<Country> all(){
-        // Вызов метода сервиса для получения всех фотографий и возврат результата
-        return photoService.allCountries();
+    public List<Country> getAllCountries() {
+        return countryService.allCountries();
     }
 
+    @GetMapping("/{isoCode}")
+    public ResponseEntity<Country> getCountryByIsoCode(@PathVariable String isoCode) {
+        Country country = countryService.countryByIsoCode(isoCode);
+        if (country != null) {
+            return ResponseEntity.ok(country);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Country> addCountry(@RequestBody Country country) {
+        if (countryService instanceof DbCountryService) {
+            Country created = ((DbCountryService) countryService).addCountry(country);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    }
+
+    @PatchMapping("/{isoCode}")
+    public ResponseEntity<Country> updateCountryName(
+            @PathVariable String isoCode,
+            @RequestBody UpdateCountryNameRequest request) {
+
+        if (countryService instanceof DbCountryService) {
+            Country updated = ((DbCountryService) countryService)
+                    .updateCountryName(isoCode, request.newName());
+
+            if (updated != null) {
+                return ResponseEntity.ok(updated);
+            }
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    }
+
+    public record UpdateCountryNameRequest(String newName) {}
 }

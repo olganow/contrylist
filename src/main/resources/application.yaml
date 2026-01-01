@@ -3,14 +3,8 @@ spring:
     name: contrylist
   # Раздел datasource - настройки источника данных (БД)
   datasource:
-    # url - строка подключения к PostgreSQL БД
-    # jdbc:postgresql:// - протокол JDBC для PostgreSQL
-    # localhost:5432 - хост и порт сервера БД
-    # countrylist - имя базы данных
-    url: 'jdbc:postgresql://localhost:5432/countrylist'
-    # username - имя пользователя для подключения к БД
+    url: 'jdbc:postgresql://localhost:5432/countrydb'
     username: olga
-    # password - пароль пользователя
     password: 'secret'
     # Раздел hikari - настройки пула соединений HikariCP
     hikari:
@@ -27,7 +21,7 @@ spring:
       # auto-commit - автоматическое подтверждение транзакций
       auto-commit: true
       # schemas - схемы, которые будут использоваться при установке соединения
-      schemas: countrylist
+      schemas: countrydb
   # Настройки Flyway - инструмент для миграций базы данных
   flyway:
     # enabled - включение/отключение Flyway миграций
@@ -37,9 +31,9 @@ spring:
     # baseline-version - начальная версия миграций
     baseline-version: 0 # Начальная версия миграций, 0 означает, что существующая БД считается "базовой линией"
     # schemas - схемы, с которыми будет работать Flyway
-    schemas: countrylist # Flyway будет работать со схемой countrylist в PostgreSQL
+    schemas: countrydb # Flyway будет работать со схемой countrydb в PostgreSQL
     # locations - путь к SQL файлам миграций
-    locations: classpath:db/migration/countrylist #Путь к SQL файлам миграций, classpath: - искать в ресурсах проекта
+    locations: classpath:db/migration/countrydb #Путь к SQL файлам миграций, classpath: - искать в ресурсах проекта
     # validate-on-migrate - проверка целостности миграций при запуске
     validate-on-migrate: true #Это гарантирует, что Flyway проверяет целостность миграций при запуске.
   # Раздел jpa - настройки Java Persistence API
@@ -53,7 +47,7 @@ spring:
     properties:
       hibernate:
         # default_schema - схема по умолчанию для всех таблиц
-        default_schema: countrylist
+        default_schema: countrydb
         jdbc:
           lob:
             # non_contextual_creation - разрешает создание LOB без контекста транзакции

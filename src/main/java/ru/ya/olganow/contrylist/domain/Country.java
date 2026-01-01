@@ -1,6 +1,9 @@
 package ru.ya.olganow.contrylist.domain;
 
+import ru.ya.olganow.contrylist.data.CountryEntity;
+
 import java.util.Date;
+import java.util.UUID;
 /*record - это новый тип класса в Java (начиная с Java 14 как preview, стабильно с Java 16),
  который предназначен для создания неизменяемых (immutable) классов данных.
 Преимущества record:
@@ -13,6 +16,21 @@ import java.util.Date;
 ❌ Нельзя наследовать другие классы (кроме Record)
 ❌ Все поля - final (нельзя изменить после создания)*/
 
-public record Country(String description, Date LastModifyDate, String content){
-
+public record Country(
+        UUID id,
+        String name,
+        String isoCode,
+        Date lastModifyDate,
+        String geometry
+) {
+    // Можно добавить статический метод-фабрику для удобства создания из entity
+    public static Country fromEntity(CountryEntity entity) {
+        return new Country(
+                entity.getId(),
+                entity.getName(),
+                entity.getIsoCode(),
+                entity.getLastModifyDate(),
+                entity.getGeometry()
+        );
+    }
 }
