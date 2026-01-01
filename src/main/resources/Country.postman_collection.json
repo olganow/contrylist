@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "0954429e-69bf-468f-971f-1e83a1c30208",
+		"name": "Country",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20782748"
+	},
+	"item": [
+		{
+			"name": "GET всех стран",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8283/api/countries/all",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8283",
+					"path": [
+						"api",
+						"countries",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET страны по коду",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Fiji1\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8283/api/countries/FJ",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8283",
+					"path": [
+						"api",
+						"countries",
+						"FJ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - добавить новую страну ---",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Russia\",\n    \"isoCode\": \"RU\",\n    \"geometry\": {\n        \"type\": \"MultiPolygon\",\n        \"coordinates\": [[[[[180, 66], [180, 60], [179, 59], [178, 58], [177, 57]]]]]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8283/api/countries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8283",
+					"path": [
+						"api",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - добавить новую страну --- Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rus\",\n    \"isoCode\": \"RS\",\n    \"geometry\": {\n        \"type\": \"MultiPolygon\",\n        \"coordinates\": [[[[[180, 66], [180, 60], [179, 59], [178, 58], [177, 57]]]]]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8283/api/countries",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8283",
+					"path": [
+						"api",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH - изменить название страны",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"newName\": \"Republic of Fiji\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8283/api/countries/FJ",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8283",
+					"path": [
+						"api",
+						"countries",
+						"FJ"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
