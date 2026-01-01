@@ -1,0 +1,45 @@
+plugins {
+	id 'java'
+	//id 'org.springframework.boot' version '3.5.9'
+    id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'ru.ya.olganow'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project with a countries list for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    // Зависимость Spring Boot Starter Web (веб-приложение)
+    // implementation - зависимость используется для компиляции и выполнения
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // Зависимость Spring Boot Starter Data JPA (работа с БД)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Зависимость Flyway Core (миграции БД) версии 10.17.1
+    implementation 'org.flywaydb:flyway-core:10.17.1'
+    // Зависимость Flyway для PostgreSQL версии 10.17.1
+    implementation 'org.flywaydb:flyway-database-postgresql:10.17.1'
+    // Зависимость PostgreSQL драйвера (только для runtime)
+    // runtimeOnly - зависимость нужна только во время выполнения
+    runtimeOnly 'org.postgresql:postgresql:42.7.8'
+    // Зависимость Spring Boot Starter Test (тестирование)
+    // testImplementation - зависимость только для тестов
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Зависимость JUnit Platform Launcher (запуск тестов)
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

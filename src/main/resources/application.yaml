@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: contrylist
+  # Раздел datasource - настройки источника данных (БД)
+  datasource:
+    # url - строка подключения к PostgreSQL БД
+    # jdbc:postgresql:// - протокол JDBC для PostgreSQL
+    # localhost:5432 - хост и порт сервера БД
+    # countrylist - имя базы данных
+    url: 'jdbc:postgresql://localhost:5432/countrylist'
+    # username - имя пользователя для подключения к БД
+    username: olga
+    # password - пароль пользователя
+    password: 'secret'
+    # Раздел hikari - настройки пула соединений HikariCP
+    hikari:
+      # connection-timeout - максимальное время ожидания соединения (20 секунд)
+      connection-timeout: 20000
+      # minimum-idle - минимальное количество idle соединений в пуле
+      minimum-idle: 10
+      # maximum-pool-size - максимальное количество соединений в пуле
+      maximum-pool-size: 30
+      # idle-timeout - время, после которого idle соединение будет закрыто
+      idle-timeout: 10000
+      # max-lifetime - максимальное время жизни соединения
+      max-lifetime: 1000
+      # auto-commit - автоматическое подтверждение транзакций
+      auto-commit: true
+      # schemas - схемы, которые будут использоваться при установке соединения
+      schemas: countrylist
+  # Настройки Flyway - инструмент для миграций базы данных
+  flyway:
+    # enabled - включение/отключение Flyway миграций
+    enabled: true # Включает Flyway миграции
+    # baseline-on-migrate - если в БД нет таблицы flyway_schema_history, Flyway создаст её
+    baseline-on-migrate: true # Если в БД нет таблицы flyway_schema_history, Flyway создаст её
+    # baseline-version - начальная версия миграций
+    baseline-version: 0 # Начальная версия миграций, 0 означает, что существующая БД считается "базовой линией"
+    # schemas - схемы, с которыми будет работать Flyway
+    schemas: countrylist # Flyway будет работать со схемой countrylist в PostgreSQL
+    # locations - путь к SQL файлам миграций
+    locations: classpath:db/migration/countrylist #Путь к SQL файлам миграций, classpath: - искать в ресурсах проекта
+    # validate-on-migrate - проверка целостности миграций при запуске
+    validate-on-migrate: true #Это гарантирует, что Flyway проверяет целостность миграций при запуске.
+  # Раздел jpa - настройки Java Persistence API
+  jpa:
+    # Раздел hibernate - настройки Hibernate ORM
+    hibernate:
+      # ddl-auto - стратегия генерации DDL (Data Definition Language)
+      # none - отключение автоматической генерации схемы БД
+      ddl-auto: none
+    # properties - дополнительные свойства Hibernate
+    properties:
+      hibernate:
+        # default_schema - схема по умолчанию для всех таблиц
+        default_schema: countrylist
+        jdbc:
+          lob:
+            # non_contextual_creation - разрешает создание LOB без контекста транзакции
+            non_contextual_creation: true
+      # show-sql - вывод SQL запросов в консоль (для отладки)
+      show-sql: true  # Включите для отладки
+    # database-platform - диалект SQL для конкретной БД
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    # show-sql - дублирующая настройка (должна быть на уровне hibernate)
+    show-sql: false
+    # generate-ddl - генерация DDL при старте приложения
+    generate-ddl: true
+    # open-in-view - включение/отключение режима "Open Session in View"
+    open-in-view: false
+# Раздел server - настройки встроенного сервера
+server:
+  # port - порт, на котором будет запущен сервер
+  port: 8283
